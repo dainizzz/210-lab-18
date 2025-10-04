@@ -1,9 +1,7 @@
 // COMSC-210 | Lab 18 | Dainiz Almazan
 // IDE used: CLion
 
-// movie reviewer: watches a film, rates it, provides comments
 // write a program to store the reviews by reviewers
-// this will be a linked list w/ nodes having a rating and a comment
 // write code to add nodes to tail of linked list
 // also add code for adding nodes to head of linked list
 // at program startup ask which mode to use (head or tail)
@@ -13,7 +11,24 @@
 #include <iostream>
 using namespace std;
 
+struct Node {
+	double rating;
+	string comment;
+	Node *next;
+};
+
+// addNodeToHead() adds a new Node with the rating and comment values provided to the front of a linked list and sets the head to be the new node
+// arguments: the head Node of a linked list, a double rating, a string comment
+// returns: nothing
+void addNodeToHead(Node *&, double, string);
+
+// addNodeToTail() adds a new Node with the rating and comment values provided to the end of a linked list
+// arguments: the head Node of a linked list, a double rating, a string comment
+// returns: nothing
+void addNodeToTail(Node *&, double, string);
+
 int main() {
+	// Initializing variables that will hold user-provided values
 	int listMethod;
 	double tempRating;
 	string tempComment;
