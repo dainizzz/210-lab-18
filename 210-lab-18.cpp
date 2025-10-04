@@ -1,6 +1,7 @@
 // COMSC-210 | Lab 18 | Dainiz Almazan
 // IDE used: CLion
 #include <iostream>
+#include <limits>
 using namespace std;
 
 struct Node {
@@ -19,6 +20,11 @@ void addNodeToHead(Node *&, double, string);
 // returns: nothing
 void addNodeToTail(Node *&, double, string);
 
+// getUserChoice prompts the user for a choice, validates it, and then returns it.
+// arguments: none
+// returns: a char value 'Y' or 'N'
+char getUserChoice();
+
 int main() {
 	// Initializing variables
 	int listMethod;
@@ -36,10 +42,20 @@ int main() {
 	while (choice != 'N' && choice != 'n')
 		{
 		cout << "Enter review rating 0-5: ";
-		cin >> tempRating;
+		while (!(cin >> tempRating)) {
+			cout << "Invalid input. Please enter a review rating 0-5:";
+			cin.clear();
+			// Clearing the number of characters inputted by the user
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+
+		// TODO: How should this be validated? Can't this be anything?
 		cout << "Enter review comments: ";
-		cin.ignore();
-		getline(cin, tempComment);
+		while (!getline(cin, tempComment)) {
+			cout << "Invalid input. Please enter a review comment:";
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
 
 		if (listMethod == 1)
 			addNodeToHead(head, tempRating, tempComment);
