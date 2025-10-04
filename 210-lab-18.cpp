@@ -39,8 +39,7 @@ int main() {
 	cout << "\tChoice: ";
 	cin >> listMethod;
 
-	while (choice != 'N' && choice != 'n')
-		{
+	while (choice != 'N') {
 		cout << "Enter review rating 0-5: ";
 		while (!(cin >> tempRating)) {
 			cout << "Invalid input. Please enter a review rating 0-5:";
@@ -62,8 +61,7 @@ int main() {
 		else
 			addNodeToTail(head, tempRating, tempComment);
 
-		cout << "Enter another review? Y/N: ";
-		cin >> choice;
+		choice = getUserChoice();
 	}
 
 	cout << "Outputting all reviews:" << endl;
@@ -102,7 +100,8 @@ void addNodeToTail(Node *&head, double rating, string comment) {
 	// If list is empty, just set the new node as head
 	if (!head)
 		head = newNode;
-	else { // Otherwise, traverse linked list until we reach the end (i.e. cur->next is nullptr)
+	else {
+		// Otherwise, traverse linked list until we reach the end (i.e. cur->next is nullptr)
 		Node *cur = head;
 		while (cur->next != nullptr) {
 			cur = cur->next;
@@ -110,4 +109,24 @@ void addNodeToTail(Node *&head, double rating, string comment) {
 		// Now that cur is the last node in the linked list, the new node is added after it
 		cur->next = newNode;
 	}
+}
+
+char getUserChoice() {
+	char temp;
+	bool isValid = false;
+	cout << "Enter another review? Y/N: ";
+	while (!isValid) {
+		if (cin >> temp) {
+			if (temp == 'N' || temp == 'n' || temp == 'Y' || temp == 'y')
+				isValid = true;
+			else
+				cout << "Invalid input. Please enter Y or N:" << endl;
+		} else {
+			cout << "Invalid input. Please enter Y or N:" << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+
+	return toupper(temp);
 }
