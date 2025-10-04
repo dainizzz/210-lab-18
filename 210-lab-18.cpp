@@ -33,7 +33,8 @@ int main() {
 	cout << "\tChoice: ";
 	cin >> listMethod;
 
-	do {
+	while (choice != 'N' && choice != 'n')
+		{
 		cout << "Enter review rating 0-5: ";
 		cin >> tempRating;
 		cout << "Enter review comments: ";
@@ -47,7 +48,7 @@ int main() {
 
 		cout << "Enter another review? Y/N: ";
 		cin >> choice;
-	} while (choice == 'Y' || choice == 'y');
+	}
 
 	cout << "Outputting all reviews:" << endl;
 	Node *cur = head;
@@ -75,12 +76,14 @@ void addNodeToHead(Node *&head, double rating, string comment) {
 	head = newNode;
 }
 
+// TODO: Fix
 void addNodeToTail(Node *&head, double rating, string comment) {
 	// Creating a new Node with the values provided by the user
 	Node *newNode = new Node();
 	newNode->comment = comment;
 	newNode->rating = rating;
 	newNode->next = nullptr;
+	//
 	// Traversing linked list until we reach the end (i.e. cur->next is nullptr)
 	Node *cur = head;
 	while (cur->next != nullptr) {
