@@ -40,11 +40,13 @@ int main() {
 	cout << "\tChoice: ";
 	cin >> listMethod;
 
+	// put in do-while loop
 	cout << "Enter review rating 0-5: ";
 	cin >> tempRating;
 	cout << "Enter review comments: ";
 	getline(cin, tempComment);
 	cin.ignore();
+	// call function to add node to list
 	cout << "Enter another review? Y/N: ";
 	cin >> choice;
 
@@ -53,4 +55,29 @@ int main() {
 	cout << "\t> Average: ";
 
 	return 0;
+}
+
+void addNodeToHead(Node *&head, double rating, string comment) {
+	// Creating a new Node with the values provided by the user
+	Node *newNode = new Node();
+	newNode->comment = comment;
+	newNode->rating = rating;
+	// Setting newNode->next to head to put newNode in front of head in the linked list
+	newNode->next = head;
+	// Setting head to newNode so that when we use the head pointer it's pointing to the correct node
+	head = newNode;
+}
+
+void addNodeToTail(Node *&head, double rating, string comment) {
+	// Creating a new Node with the values provided by the user
+	Node *newNode = new Node();
+	newNode->comment = comment;
+	newNode->rating = rating;
+	newNode->next = nullptr;
+	//traverse linked list
+	Node *cur = head;
+	while (cur) {
+
+	}
+	// lastNode->next = newNode;
 }
