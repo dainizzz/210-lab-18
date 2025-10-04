@@ -25,8 +25,14 @@ void addNodeToTail(Node *&, double, string);
 // returns: a char value 'Y' or 'N'
 char getUserChoice();
 
-int getValidRating();
+// getValidRating prompts the user for a rating, validates it, and then returns it.
+// arguments: none
+// returns: a double value between 0 and 5
+double getValidRating();
 
+// getValidComment prompts the user for a comment, makes sure the input isn't empty, and then returns it.
+// arguments: none
+// returns: a non-empty string comment
 string getValidComment();
 
 int main() {
@@ -45,14 +51,8 @@ int main() {
 
 	while (choice != 'N') {
 		tempRating = getValidRating();
+		// Clearing stream getline() is called in getValidComment();
 		tempComment = getValidComment();
-		// // TODO: How should this be validated? Can't this be anything?
-		// cout << "Enter review comments: ";
-		// while (!getline(cin, tempComment)) {
-		// 	cout << "Invalid input. Please enter a review comment:";
-		// 	cin.clear();
-		// 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		// }
 
 		if (listMethod == 1)
 			addNodeToHead(head, tempRating, tempComment);
@@ -130,8 +130,8 @@ char getUserChoice() {
 	return toupper(temp);
 }
 
-int getValidRating() {
-	int temp;
+double getValidRating() {
+	double temp;
 	bool isValid = false;
 	cout << "Enter review rating 0-5: ";
 	while (!isValid) {
@@ -153,10 +153,11 @@ int getValidRating() {
 string getValidComment() {
 	string temp;
 	cout << "Enter review comments: ";
-	while (!getline(cin, temp)) {
-		cout << "Invalid input. Please enter a review comment:";
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, temp);
+	while (temp.empty()) {
+		cout << "Comments cannot be empty. Enter review comments:";
+		getline(cin, temp);
 	}
+
 	return temp;
 }
