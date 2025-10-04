@@ -25,12 +25,16 @@ void addNodeToTail(Node *&, double, string);
 // returns: a char value 'Y' or 'N'
 char getUserChoice();
 
+int getValidRating();
+
+string getValidComment();
+
 int main() {
 	// Initializing variables
 	int listMethod;
 	double tempRating;
 	string tempComment;
-	char choice;
+	char choice = 'Y';
 	Node *head = nullptr;
 
 	cout << "Which linked list method should we use?" << endl;
@@ -40,21 +44,15 @@ int main() {
 	cin >> listMethod;
 
 	while (choice != 'N') {
-		cout << "Enter review rating 0-5: ";
-		while (!(cin >> tempRating)) {
-			cout << "Invalid input. Please enter a review rating 0-5:";
-			cin.clear();
-			// Clearing the number of characters inputted by the user
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
-
-		// TODO: How should this be validated? Can't this be anything?
-		cout << "Enter review comments: ";
-		while (!getline(cin, tempComment)) {
-			cout << "Invalid input. Please enter a review comment:";
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		}
+		tempRating = getValidRating();
+		tempComment = getValidComment();
+		// // TODO: How should this be validated? Can't this be anything?
+		// cout << "Enter review comments: ";
+		// while (!getline(cin, tempComment)) {
+		// 	cout << "Invalid input. Please enter a review comment:";
+		// 	cin.clear();
+		// 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		// }
 
 		if (listMethod == 1)
 			addNodeToHead(head, tempRating, tempComment);
@@ -124,9 +122,41 @@ char getUserChoice() {
 		} else {
 			cout << "Invalid input. Please enter Y or N:" << endl;
 			cin.clear();
+			// Clearing the number of characters inputted by the user
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 
 	return toupper(temp);
+}
+
+int getValidRating() {
+	int temp;
+	bool isValid = false;
+	cout << "Enter review rating 0-5: ";
+	while (!isValid) {
+		if (cin >> temp) {
+			if (temp >= 0 && temp <= 5)
+				isValid = true;
+			else
+				cout << "Invalid input. Please enter a review rating 0-5:";
+		} else {
+			cout << "Invalid input. Please enter a review rating 0-5:";
+			cin.clear();
+			// Clearing the number of characters inputted by the user
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
+	return temp;
+}
+
+string getValidComment() {
+	string temp;
+	cout << "Enter review comments: ";
+	while (!getline(cin, temp)) {
+		cout << "Invalid input. Please enter a review comment:";
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
+	return temp;
 }
