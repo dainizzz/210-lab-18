@@ -28,11 +28,12 @@ void addNodeToHead(Node *&, double, string);
 void addNodeToTail(Node *&, double, string);
 
 int main() {
-	// Initializing variables that will hold user-provided values
-	int listMethod;
-	double tempRating;
+	// Initializing variables
+	int listMethod, count;
+	double tempRating, average;
 	string tempComment;
 	char choice;
+	Node *head = nullptr;
 
 	cout << "Which linked list method should we use?" << endl;
 	cout << "\t [1] New nodes are added to the head of the linked list" << endl;
@@ -40,17 +41,27 @@ int main() {
 	cout << "\tChoice: ";
 	cin >> listMethod;
 
-	// put in do-while loop
-	cout << "Enter review rating 0-5: ";
-	cin >> tempRating;
-	cout << "Enter review comments: ";
-	getline(cin, tempComment);
-	cin.ignore();
-	// call function to add node to list
-	cout << "Enter another review? Y/N: ";
-	cin >> choice;
+	do {
+		cout << "Enter review rating 0-5: ";
+		cin >> tempRating;
+		cout << "Enter review comments: ";
+		getline(cin, tempComment);
+		cin.ignore();
+
+		if (listMethod == 1)
+			addNodeToHead(head, tempRating, tempComment);
+		else
+			addNodeToTail(head, tempRating, tempComment);
+
+		cout << "Enter another review? Y/N: ";
+		cin >> choice;
+	} while (choice == 'Y' || choice == 'y');
 
 	cout << "Outputting all reviews:" << endl;
+	Node *cur = head;
+	while (cur != nullptr) {
+
+	}
 	cout << "\t> Review #" << ":" << endl;
 	cout << "\t> Average: ";
 
@@ -74,10 +85,11 @@ void addNodeToTail(Node *&head, double rating, string comment) {
 	newNode->comment = comment;
 	newNode->rating = rating;
 	newNode->next = nullptr;
-	//traverse linked list
+	// Traversing linked list until we reach the end (i.e. cur->next is nullptr)
 	Node *cur = head;
-	while (cur) {
-
+	while (cur->next != nullptr) {
+		cur = cur->next;
 	}
-	// lastNode->next = newNode;
+	// Now that cur is the last node in the linked list, the new node is added after it
+	cur->next = newNode;
 }
