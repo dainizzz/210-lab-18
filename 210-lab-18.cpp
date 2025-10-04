@@ -20,22 +20,22 @@ void addNodeToHead(Node *&, double, string);
 // returns: nothing
 void addNodeToTail(Node *&, double, string);
 
-// getListMethod prompts the user for a choice, validates it, and then returns it.
+// getListMethod() prompts the user for a choice, validates it, and then returns it.
 // arguments: none
 // returns: an int value 1 or 2
 int getListMethod();
 
-// getUserChoice prompts the user for a choice, validates it, and then returns it.
+// getUserChoice() prompts the user for a choice, validates it, and then returns it.
 // arguments: none
 // returns: a char value 'Y' or 'N'
 char getUserChoice();
 
-// getValidRating prompts the user for a rating, validates it, and then returns it.
+// getValidRating() prompts the user for a rating, validates it, and then returns it.
 // arguments: none
 // returns: a double value between 0 and 5
 double getValidRating();
 
-// getValidComment prompts the user for a comment, makes sure the input isn't empty, and then returns it.
+// getValidComment() prompts the user for a comment, makes sure the input isn't empty, and then returns it.
 // arguments: none
 // returns: a non-empty string comment
 string getValidComment();
@@ -116,16 +116,25 @@ int getListMethod() {
 	int temp;
 	bool isValid = false;
 
-	while (!isValid) {
-
-	}
 	cout << "Which linked list method should we use?" << endl;
 	cout << "\t [1] New nodes are added to the head of the linked list" << endl;
 	cout << "\t [2] New nodes are added to the tail of the linked list" << endl;
 	cout << "\tChoice: ";
-	cin >> temp;
 
-
+	while (!isValid) {
+		if (cin >> temp) {
+			// If the user entered a valid value, the while loop ends
+			if (temp == 1 || temp == 2)
+				isValid = true;
+			else // Checks for user input being an int value outside 1 or 2
+				cout << "Invalid input. Please enter 1 or 2:";
+		} else { // Checks for user input being a non-int value
+			cout << "Invalid input. Please enter 1 or 2:";
+			cin.clear();
+			// Clearing the number of characters inputted by the user
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+	}
 
 	return temp;
 }
@@ -133,6 +142,7 @@ int getListMethod() {
 char getUserChoice() {
 	char temp;
 	bool isValid = false;
+
 	cout << "Enter another review? Y/N: ";
 	while (!isValid) {
 		if (cin >> temp) {
@@ -154,6 +164,7 @@ char getUserChoice() {
 double getValidRating() {
 	double temp;
 	bool isValid = false;
+
 	cout << "Enter review rating 0-5: ";
 	while (!isValid) {
 		if (cin >> temp) {
@@ -168,11 +179,13 @@ double getValidRating() {
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
+
 	return temp;
 }
 
 string getValidComment() {
 	string temp;
+
 	cout << "Enter review comments: ";
 	getline(cin, temp);
 	while (temp.empty()) {
