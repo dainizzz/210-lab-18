@@ -146,11 +146,12 @@ char getUserChoice() {
 	cout << "Enter another review? Y/N: ";
 	while (!isValid) {
 		if (cin >> temp) {
+			// If the user entered a valid value, the while loop ends
 			if (temp == 'N' || temp == 'n' || temp == 'Y' || temp == 'y')
 				isValid = true;
-			else
+			else // Checks for user input being a char value outside Y or N
 				cout << "Invalid input. Please enter Y or N:" << endl;
-		} else {
+		} else { // Checks for user input being a non-char value
 			cout << "Invalid input. Please enter Y or N:" << endl;
 			cin.clear();
 			// Clearing the number of characters inputted by the user
@@ -168,11 +169,12 @@ double getValidRating() {
 	cout << "Enter review rating 0-5: ";
 	while (!isValid) {
 		if (cin >> temp) {
+			// If the user entered a valid value, the while loop ends
 			if (temp >= 0 && temp <= 5)
 				isValid = true;
-			else
+			else // Checks for user input being a double value outside the range [0,5]
 				cout << "Invalid input. Please enter a review rating 0-5:";
-		} else {
+		} else { // Checks for user input being a non-double value
 			cout << "Invalid input. Please enter a review rating 0-5:";
 			cin.clear();
 			// Clearing the number of characters inputted by the user
