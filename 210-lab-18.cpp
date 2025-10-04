@@ -76,19 +76,22 @@ void addNodeToHead(Node *&head, double rating, string comment) {
 	head = newNode;
 }
 
-// TODO: Fix
 void addNodeToTail(Node *&head, double rating, string comment) {
 	// Creating a new Node with the values provided by the user
 	Node *newNode = new Node();
 	newNode->comment = comment;
 	newNode->rating = rating;
 	newNode->next = nullptr;
-	// If list is empty, do something else
-	// Traversing linked list until we reach the end (i.e. cur->next is nullptr)
-	Node *cur = head;
-	while (cur->next != nullptr) {
-		cur = cur->next;
+
+	// If list is empty, just set the new node as head
+	if (!head)
+		head = newNode;
+	else { // Otherwise, traverse linked list until we reach the end (i.e. cur->next is nullptr)
+		Node *cur = head;
+		while (cur->next != nullptr) {
+			cur = cur->next;
+		}
+		// Now that cur is the last node in the linked list, the new node is added after it
+		cur->next = newNode;
 	}
-	// Now that cur is the last node in the linked list, the new node is added after it
-	cur->next = newNode;
 }
