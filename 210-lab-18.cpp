@@ -1,13 +1,5 @@
 // COMSC-210 | Lab 18 | Dainiz Almazan
 // IDE used: CLion
-
-// write a program to store the reviews by reviewers
-// write code to add nodes to tail of linked list
-// also add code for adding nodes to head of linked list
-// at program startup ask which mode to use (head or tail)
-// prompt user to enter data and store in linked list
-// after inputting all reviews, traverse linked list to output the data and calculate/output average review
-
 #include <iostream>
 using namespace std;
 
@@ -29,8 +21,8 @@ void addNodeToTail(Node *&, double, string);
 
 int main() {
 	// Initializing variables
-	int listMethod, count;
-	double tempRating, average;
+	int listMethod;
+	double tempRating;
 	string tempComment;
 	char choice;
 	Node *head = nullptr;
@@ -45,8 +37,8 @@ int main() {
 		cout << "Enter review rating 0-5: ";
 		cin >> tempRating;
 		cout << "Enter review comments: ";
-		getline(cin, tempComment);
 		cin.ignore();
+		getline(cin, tempComment);
 
 		if (listMethod == 1)
 			addNodeToHead(head, tempRating, tempComment);
@@ -59,11 +51,15 @@ int main() {
 
 	cout << "Outputting all reviews:" << endl;
 	Node *cur = head;
-	while (cur != nullptr) {
-
+	int count = 0;
+	double total = 0;
+	while (cur) {
+		cout << "\t> Review #" << count + 1 << ": " << cur->rating << ": " << cur->comment << endl;
+		count++;
+		total += cur->rating;
+		cur = cur->next;
 	}
-	cout << "\t> Review #" << ":" << endl;
-	cout << "\t> Average: ";
+	cout << "\t> Average: " << total / count << endl;
 
 	return 0;
 }
