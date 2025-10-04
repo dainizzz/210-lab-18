@@ -83,7 +83,7 @@ void addNodeToTail(Node *&head, double rating, string comment) {
 	newNode->comment = comment;
 	newNode->rating = rating;
 	newNode->next = nullptr;
-	//
+	// If list is empty, do something else
 	// Traversing linked list until we reach the end (i.e. cur->next is nullptr)
 	Node *cur = head;
 	while (cur->next != nullptr) {
