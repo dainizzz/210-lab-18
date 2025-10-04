@@ -20,6 +20,11 @@ void addNodeToHead(Node *&, double, string);
 // returns: nothing
 void addNodeToTail(Node *&, double, string);
 
+// getListMethod prompts the user for a choice, validates it, and then returns it.
+// arguments: none
+// returns: an int value 1 or 2
+int getListMethod();
+
 // getUserChoice prompts the user for a choice, validates it, and then returns it.
 // arguments: none
 // returns: a char value 'Y' or 'N'
@@ -43,15 +48,13 @@ int main() {
 	char choice = 'Y';
 	Node *head = nullptr;
 
-	cout << "Which linked list method should we use?" << endl;
-	cout << "\t [1] New nodes are added to the head of the linked list" << endl;
-	cout << "\t [2] New nodes are added to the tail of the linked list" << endl;
-	cout << "\tChoice: ";
-	cin >> listMethod;
+	listMethod = getListMethod();
 
+	// lowercase chars are converted to uppercase in getUserChoice(), so only N is checked for
 	while (choice != 'N') {
 		tempRating = getValidRating();
-		// Clearing stream getline() is called in getValidComment();
+		// Clearing stream before getline() is called in getValidComment();
+		cin.ignore();
 		tempComment = getValidComment();
 
 		if (listMethod == 1)
@@ -107,6 +110,24 @@ void addNodeToTail(Node *&head, double rating, string comment) {
 		// Now that cur is the last node in the linked list, the new node is added after it
 		cur->next = newNode;
 	}
+}
+
+int getListMethod() {
+	int temp;
+	bool isValid = false;
+
+	while (!isValid) {
+
+	}
+	cout << "Which linked list method should we use?" << endl;
+	cout << "\t [1] New nodes are added to the head of the linked list" << endl;
+	cout << "\t [2] New nodes are added to the tail of the linked list" << endl;
+	cout << "\tChoice: ";
+	cin >> temp;
+
+
+
+	return temp;
 }
 
 char getUserChoice() {
